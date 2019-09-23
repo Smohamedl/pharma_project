@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <include file="struts-default.xml"/>
+    <constant name="struts.devMode" value="true" />
+
+    <package name="default" extends="struts-default">
+
+        <interceptors>
+            <interceptor name="userSession"
+                         class="mr.cleancode.pharmaproject.interceptor.SessionInterceptor"></interceptor>
+        </interceptors>
+
+        <global-results>
+            <result name="notLogged" type="redirect">loginPage.action</result>
+        </global-results>
+
+        <action name="welcome">
+            <interceptor-ref name="userSession"></interceptor-ref>
+            <result>/WEB-INF/jsp/commonpages/welcome.jsp</result>
+        </action>
+
+        <action name="loginPage">
+            <result>/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+        <action name="ajoutCaissierPage">
+            <result>/WEB-INF/jsp/adminpages/addUser.jsp</result>
+        </action>
+
+        <action name="homePage">
+            <result>/WEB-INF/jsp/adminpages/home.jsp</result>
+        </action>
+
+        <action name="">
+            <result >/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+        <action name="loginaction" class="mr.cleancode.pharmaproject.web.LoginAction">
+            <result name="success">/WEB-INF/jsp/adminpages/home.jsp</result>
+            <result name="error">/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+        <action name="adduseraction" class="mr.cleancode.pharmaproject.web.AddUserAction">
+            <interceptor-ref name="userSession"></interceptor-ref>
+            <result name="success">/WEB-INF/jsp/adminpages/addUser.jsp</result>
+            <result name="error">/WEB-INF/jsp/adminpages/addUser.jsp</result>
+            <result name="input">/WEB-INF/jsp/adminpages/addUser.jsp</result>
+        </action>
+    </package>
+</struts>
